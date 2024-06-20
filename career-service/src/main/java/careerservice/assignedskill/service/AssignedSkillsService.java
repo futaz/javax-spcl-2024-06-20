@@ -4,8 +4,11 @@ import careerservice.NotFoundException;
 import careerservice.assignedskill.command.AssignSkillsToEmployeeCommand;
 import careerservice.assignedskill.model.AssignedSkills;
 import careerservice.assignedskill.view.EmployeeSkillsView;
+import careerservice.skill.SkillHasBeenCreatedEvent;
+import careerservice.skill.SkillServicePort;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
 // alsószintűre, nem lesz kör.
 public class AssignedSkillsService {
 
-    private AssignedSkillsRepository repository;
+    private final AssignedSkillsRepository repository;
+
+    private final SkillServicePort skillService;
+
+    @EventListener
+    public void onSkillCreation(SkillHasBeenCreatedEvent event) {
+        log.info("Received event {}", event);
+    }
 
     @Transactional
     public EmployeeSkillsView assignSkillsToEmployee(AssignSkillsToEmployeeCommand command) {
