@@ -7,6 +7,17 @@
 	<artifactId>career-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.modulith</groupId>
+				<artifactId>spring-modulith-bom</artifactId>
+				<version>${spring-modulith.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -19,6 +30,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
+		<spring-modulith.version>1.2.0</spring-modulith.version>
 	</properties>
 
 	<dependencies>
@@ -71,10 +83,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.modulith</groupId>
+			<artifactId>spring-modulith-starter-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.modulith</groupId>
+			<artifactId>spring-modulith-docs</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
-	<build>
+<build>
 		<finalName>employee-service</finalName>
 		<plugins>
 
