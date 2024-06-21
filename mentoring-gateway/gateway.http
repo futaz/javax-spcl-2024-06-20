@@ -2,3 +2,8 @@
 
 GET http://localhost:8085/api/courses/1
 Accept: application/json
+
+### Query course from spring boot app by word
+
+GET http://localhost:8085/api/course-documents?word=adipiscing
+Accept: application/json
