@@ -41,7 +41,12 @@ Content-Type: application/json
   "courseId": 1
 }
 
-### Query course from Elasticsearch
+### Query course from spring boot app
 
 GET http://localhost:8083/api/course-documents/1
+Accept: application/json
+
+### Query course from Elasticsearch
+
+GET http://localhost:9200/courses/_search?pretty=true
 Accept: application/json
