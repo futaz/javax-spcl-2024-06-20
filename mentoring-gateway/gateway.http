@@ -7,3 +7,15 @@ Accept: application/json
 
 GET http://localhost:8085/api/course-documents?word=adipiscing
 Accept: application/json
+
+### Create course
+
+POST http://localhost:8085/api/courses
+Content-Type: application/json
+
+{
+  "name": "Advanced Java development",
+  "description": "Learn Java",
+  "syllabus": "Java SE",
+  "limit": 5
+}
