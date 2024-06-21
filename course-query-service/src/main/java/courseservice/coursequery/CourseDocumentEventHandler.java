@@ -2,19 +2,26 @@ package courseservice.coursequery;
 
 import courseservice.course.CourseHasBeenCreatedEvent;
 import lombok.AllArgsConstructor;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+import java.util.function.Consumer;
+
+@Configuration
 @AllArgsConstructor
+@Slf4j
 class CourseDocumentEventHandler {
 
     private final CourseDocumentRepository repository;
     private final CourseDocumentMapper mapper;
 
-    @EventListener
-    void handleCourseHasBeenCreatedEvent(CourseHasBeenCreatedEvent event) {
-        var document = mapper.toCourseDocument(event);
-        repository.save(document);
+    @Bean
+    public Consumer<CourseHasBeenCreatedEvent> eventHandler() {
+        return event -> {
+            log.info("Event received: {}", event);
+            var document = mapper.toCourseDocument(event);
+            repository.save(document);
+        };
     }
 }

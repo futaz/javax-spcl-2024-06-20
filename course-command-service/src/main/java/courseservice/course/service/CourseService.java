@@ -4,6 +4,7 @@ import courseservice.course.dto.*;
 import courseservice.course.model.Course;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +20,15 @@ public class CourseService {
 
     private CourseMapper courseMapper;
 
-    private final ApplicationEventPublisher publisher;
+    // Valós életben ezt jobb volna úgy, hogy itt application eventet dobunk és egy gateway osztályban forgatjuk át stream bridge-re
+    private StreamBridge streamBridge;
 
     public CourseView createCourse(CreateCourseCommand command) {
         var course =  Course.announceCourse(command);
         courseRepository.save(course);
-        publisher.publishEvent(courseMapper.toCourseHasBeenCreatedEvent(course));
+
+        // topic névkonvenciók: my-service-request / -response / -events
+        streamBridge.send("course-command-events", courseMapper.toCourseHasBeenCreatedEvent(course));
         return courseMapper.toView(course);
     }
 
