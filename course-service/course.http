@@ -41,9 +41,14 @@ Content-Type: application/json
   "courseId": 1
 }
 
-### Query course from spring boot app
+### Query course from spring boot app by id
 
 GET http://localhost:8083/api/course-documents/1
+Accept: application/json
+
+### Query course from spring boot app by word
+
+GET http://localhost:8083/api/course-documents?word=adipiscing
 Accept: application/json
 
 ### Query course from Elasticsearch
