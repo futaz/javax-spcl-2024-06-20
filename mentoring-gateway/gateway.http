@@ -1,0 +1,4 @@
+### Query course from spring boot app by id
+
+GET http://localhost:8085/api/courses/1
+Accept: application/json
