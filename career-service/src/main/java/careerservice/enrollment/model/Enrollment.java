@@ -16,15 +16,25 @@ public class Enrollment {
 
     private long courseId;
 
-    private Enrollment() {
+    @Enumerated(EnumType.STRING)
+    private EnrollmentStatus status;
 
+    private Enrollment() {
     }
 
     public static Enrollment enrollToCourse(EnrollCommand command) {
         var enrollment = new Enrollment();
         enrollment.employeeId = command.employeeId();
         enrollment.courseId = command.courseId();
+        enrollment.status = EnrollmentStatus.STARTED;
         return enrollment;
     }
 
+    public void complete() {
+        status = status.complete();
+    }
+
+    public void cancel() {
+        status = status.cancel();
+    }
 }
